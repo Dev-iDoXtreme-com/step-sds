@@ -216,9 +216,8 @@ func apiCertToTransport(certs []api.Certificate) (http.RoundTripper, error) {
 	}
 
 	return getDefaultTransport(&tls.Config{
-		MinVersion:               tls.VersionTLS12,
-		PreferServerCipherSuites: true,
-		RootCAs:                  pool,
+		MinVersion: tls.VersionTLS12,
+		RootCAs:    pool,
 	})
 }
 
@@ -240,7 +239,6 @@ func getDefaultTransport(tlsConfig *tls.Config) (*http.Transport, error) {
 		DialContext: (&net.Dialer{
 			Timeout:   30 * time.Second,
 			KeepAlive: 30 * time.Second,
-			DualStack: true,
 		}).DialContext,
 		MaxIdleConns:          100,
 		IdleConnTimeout:       90 * time.Second,
